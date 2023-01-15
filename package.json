@@ -1,0 +1,19 @@
+{
+  "name": "yaadi",
+  "version": "0.0.1",
+  "description": "Decentralized blockchain marketplace",
+  "main": "index.js",
+  "scripts": {
+    "test": "start"
+  },
+  "keywords": [
+    "yaadi",
+    "yaadi",
+    "marketplace"
+  ],
+  "author": "W.Edwards, (OMEN)",
+  "license": "ISC",
+  "dependencies": {
+    "crypto-js": "^4.1.1"
+  }
+}

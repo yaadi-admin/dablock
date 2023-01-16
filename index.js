@@ -1,17 +1,20 @@
-const { sha256 } = require("crypto.js");
+const sha256 = require('crypto-js/sha256');
+const hmacSHA512 = require('crypto-js/hmac-sha512');
+const Base64 = require('crypto-js/enc-base64');
+var CryptoJS = require("crypto-js");
 
 class Block {
-    constructor(timestamp, data) {
-        this.index = 0;
+    constructor(index, timestamp, data, previousHash = "0", ) {
+        this.index = index;
         this.timestamp = timestamp;
         this.data = data;
-        this.previousHash = "0";
+        this.previousHash = previousHash;
         this.hash = this.calculateHash();
-        this.nonce = 0;
+        this.nonce = Math.random() * (10 - 1 + 1) + 1;
     }
 
     calculateHash() {
-        return sha256(this.indexx + this.previousHash + this.timestamp + this.data + this.nonce).toString();
+        return sha256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data) + this.nonce).toString();
     }
 
     mineBlock(difficulty) {
@@ -31,14 +34,17 @@ class Blockchain {
     latestBlock() {
         return this.chain[this.chain.length - 1]
     }
-    adBlock(newBlock) {
+    addBlock(newBlock) {
         newBlock.previoushash = this.latestBlock().hash;
         newBlock.hash = newBlock.calculateHash();
         this.chain.push(newBlock);
     }
-    checkValid() {
-        for (let i = 1; i < this.chain.length; i++) {
-            // const curr;
-        }
-    }  
+
 }
+
+let yaadi = new Blockchain();
+yaadi.addBlock(new Block(1, "10/07/2017", {amount: 4}));
+yaadi.addBlock(new Block(2, "10/07/2017", { amount: 10 }));
+yaadi.addBlock(new Block(3, "10/07/2017", { amount: 7 }));
+
+console.log(JSON.stringify(yaadi, null, 4));
